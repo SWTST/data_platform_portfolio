@@ -40,7 +40,8 @@ $DefaultOlaParams = [ordered]@{
     FragmentationLow       = $null
     FragmentationMedium    = 'INDEX_REORGANIZE,INDEX_REBUILD_ONLINE,INDEX_REBUILD_OFFLINE'
     FragmentationHigh      = 'INDEX_REBUILD_ONLINE,INDEX_REBUILD_OFFLINE,INDEX_REORGANIZE'
-    PageCountLevel         = 1000
+    MinNumberOfPages       = 1000
+    MaxNumberOfPages       = $null
     UpdateStatistics       = 'ALL'
     OnlyModifiedStatistics = 'Y'
     LogToTable             = 'Y'
@@ -308,9 +309,27 @@ function Build-OlaParams {
                     }
                 }
                 'REINDEX PAGES LOWER THRESHOLD' {
-                    $ola.PageCountLevel = @{
+                    $ola.MinNumberOfPages = @{
                         Value = [int]$row.DatabaseConfigValue; Source = 'Legacy'
                         Notes = 'tblDatabaseConfig.REINDEX PAGES LOWER THRESHOLD'
+                    }
+                }
+                'REINDEX PAGES UPPER THRESHOLD' {
+                    # INT32 MAX (2147483647) means "no upper limit" in legacy, which
+                    # matches Ola's NULL default. Still tag as Legacy-sourced so the
+                    # review flag does not fire on an intentionally-unbounded upper.
+                    $upper = [int64]$row.DatabaseConfigValue
+                    if ($upper -ge 2147483647) {
+                        $ola.MaxNumberOfPages = @{
+                            Value  = $null; Source = 'Legacy'
+                            Notes  = 'REINDEX PAGES UPPER THRESHOLD = INT32 MAX (no upper cap) - leaves @MaxNumberOfPages NULL'
+                        }
+                    }
+                    else {
+                        $ola.MaxNumberOfPages = @{
+                            Value = [int]$upper; Source = 'Legacy'
+                            Notes = 'tblDatabaseConfig.REINDEX PAGES UPPER THRESHOLD'
+                        }
                     }
                 }
                 'REBUILD ONLINE' {
@@ -325,8 +344,8 @@ function Build-OlaParams {
                         }
                     }
                 }
-                # REINDEX PAGES UPPER THRESHOLD and INDEX STATS SCANMODE
-                # have no Ola equivalent; logged in Discover audit only.
+                # INDEX STATS SCANMODE has no Ola equivalent (Ola does not
+                # expose the fragmentation scan mode); logged in Discover only.
             }
         }
 
@@ -401,7 +420,8 @@ function Build-IndexOptimizeCommand {
     $orderedKeys = @(
         'Databases', 'FragmentationLevel1', 'FragmentationLevel2',
         'FragmentationLow', 'FragmentationMedium', 'FragmentationHigh',
-        'PageCountLevel', 'UpdateStatistics', 'OnlyModifiedStatistics',
+        'MinNumberOfPages', 'MaxNumberOfPages',
+        'UpdateStatistics', 'OnlyModifiedStatistics',
         'LogToTable', 'TimeLimit'
     )
     $lines = @('EXEC dbo.IndexOptimize')
@@ -641,7 +661,8 @@ EXEC msdb.dbo.sp_delete_job @job_name = N'$(($row.name) -replace "'","''")', @de
     # Server can list servers that need human review. Does not block Deploy.
     $hasLegacyJob = @($legacySteps).Count -gt 0
     $mappableOla = @(
-        'FragmentationLevel1', 'FragmentationLevel2', 'PageCountLevel',
+        'FragmentationLevel1', 'FragmentationLevel2',
+        'MinNumberOfPages', 'MaxNumberOfPages',
         'FragmentationHigh', 'FragmentationMedium',
         'Databases', 'OnlyModifiedStatistics'
     )
