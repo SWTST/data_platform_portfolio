@@ -1,28 +1,25 @@
 
-# 🚀 Data Platform Learning Journey
+# 🚀 Data Platform Portfolio
 
-Welcome to my personal learning repository!
-This repo documents my Journey from Junior DBA to aspiring Data Platform Engineer as I build my skills in SQL, Microsoft Fabric and Python. It includes notes on key learning areas and showcases various projects/mini-projects that I have completed along the way.
+Welcome to my personal data platform portfolio!
 
----
+This repo is a portfolio of my learning and work as I build my skills in the world of Data.
 
-## 📅 Learning Roadmap (2025-2026)
+I document Exam/Certificate preparations, SQL & Powershell work, and detail larger projects.
 
-- **SQL / DBA Fundamentals** → performance tuning, backups, security
-- **Microsoft Fabric** → Lakehouse, pipelines, governance, BI integration
-- **Python / PySpark** → Data manipulation and scalable transformations
-- **Certifications** → DP-600 (Fabric), DP-203 (Azure Data Engineer) 
 ---
 
 ## 📂 Repository Structure
 
 ```
-/sql-tuning-examples    → Query optimisation, execution plan notes, before/after comparisons
-/fabric-pipelines       → Fabric Data Factory pipelines, Lakehouse scripts, governance examples
-/python-pandas          → Python + Pandas practice notebooks and scripts
-/pyspark                → PySpark transformations and demos
-/notes                  → Study notes, certification prep, summaries
-/projects               → End-to-end mini projects (SQL → Fabric → BI)
+/images-diagrams        → Images warehouse for all work.
+/notes                  → Learning notes separated by work thread e.g. Exam prep, Fabric, Python, SQL
+/posts                  → Pre-release writeups for Posts.
+/projects               → End-to-End projects documented within individual folders.
+/scripts-utilities      → Standalone scripting and functions. Queries, Powershell.
+/tuning                 → Optimisation to queries or processes.
+
+SHIPPED.md              → A log of work published. Use as progress chart.
 ```
 ---
 
@@ -50,6 +47,7 @@ This repo documents my Journey from Junior DBA to aspiring Data Platform Enginee
 - [ ] DBA Fundamentals
 - [x] Fabric Pipelines
 - [ ] Fabric Governance
+- [ ] DP-300 Certification
 - [ ] DP-600 Certification
 - [ ] Python (Pandas)
 - [ ] PySpark
@@ -59,5 +57,5 @@ This repo documents my Journey from Junior DBA to aspiring Data Platform Enginee
 
 ## 🤝 Connect
 
-- **LinkedIn:** [Steven Wyatt](www.linkedin.com/in/steven-wyatt-0737a624a)
+- **LinkedIn:** www.linkedin.com/in/steven-wyatt-0737a624a
 - **Blog / Notes:** TBD
