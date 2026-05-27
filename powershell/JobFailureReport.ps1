@@ -7,7 +7,7 @@ Write-Output "JobFailureReport.ps1 started at $(Get-Date)"
 $SSAcreds = Get-Credential -UserName "" -Message 'Input SSA Credentials' 
 $WACreds = Get-Credential -Message 'Input WA Credentials'
 
-$cmsServer = 'ACUL021'
+$cmsServer = 'CMS-SERVER01'
 $allServers = Get-DbaRegServer -SqlInstance $cmsServer -SqlCredential $WACreds
 
 <# SEND EMAIL FUNCTION
@@ -178,13 +178,13 @@ $body = @"
 
 
 $sendMailMessageSplat = @{
-    From = 'DBAteam'
-    To = 'IT.servicedesk'
-    CC = 'email'
+    From = 'dba-team@contoso.com'
+    To = 'servicedesk@contoso.com'
+    CC = 'recipient@contoso.com'
     Subject = 'Job Failure Report ' + $CurrentDate
     ##Attachments = $JobReport
     Body = $body
-    SmtpServer = 'smtp.email.local'
+    SmtpServer = 'smtp.contoso.local'
 }
 
 Send-MailMessage @sendMailMessageSplat -BodyAsHtml
