@@ -15,7 +15,7 @@
 - [ ] **(1.17)** On SQL Express, create a partitioned table with sample data
 
 ### Applied:
-- [ ] **(1.18)** Audit Atrium's SQL estate — document what's on-prem vs cloud
+- [ ] **(1.18)** Audit a sample SQL estate — document what's on-prem vs cloud
 
 
 ## **(1.11)** Deploy Azure SQL DB, Managed Instance, SQL on VMs — when to use each 

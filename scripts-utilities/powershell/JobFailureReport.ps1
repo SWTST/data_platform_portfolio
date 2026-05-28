@@ -4,11 +4,11 @@ Write-Output "JobFailureReport.ps1 started at $(Get-Date)"
 
 #Global Variables <Start>
 
-$SSAcreds = Get-Credential -UserName "" -Message 'Input SSA Credentials' 
-$WACreds = Get-Credential -Message 'Input WA Credentials'
+$Auth1Creds = Get-Credential -UserName "" -Message 'Input Auth1 Credentials'
+$Auth2Creds = Get-Credential -Message 'Input Auth2 Credentials'
 
 $cmsServer = 'CMS-SERVER01'
-$allServers = Get-DbaRegServer -SqlInstance $cmsServer -SqlCredential $WACreds
+$allServers = Get-DbaRegServer -SqlInstance $cmsServer -SqlCredential $Auth2Creds
 
 <# SEND EMAIL FUNCTION
 $JobReport = @("\\servername\C$\SQLstuff\JobFailureReporting\Listeners.csv")
@@ -113,22 +113,22 @@ $results = @()
 #Run report
 foreach($server in $allServers) {
     try{
-    #Windows
-    Write-Host('Trying Windows Auth on $server.ServerName')
-    $results += Invoke-DBAQuery -SqlInstance $server.ServerName -Query $Query -SqlCredential $WACreds -EnableException
-    Write-Host('Windows Auth succeeded on $server.ServerName')
+    #Auth2
+    Write-Host('Trying Auth2 on $server.ServerName')
+    $results += Invoke-DBAQuery -SqlInstance $server.ServerName -Query $Query -SqlCredential $Auth2Creds -EnableException
+    Write-Host('Auth2 succeeded on $server.ServerName')
     continue
     } catch {
 
-    #SSA
-    Write-Warning "SSA failed on $($server.ServerName): $($_.Exception.Message)"
+    #Auth1
+    Write-Warning "Auth2 failed on $($server.ServerName): $($_.Exception.Message)"
 
         try {
-            Write-Host('Trying SSA on $server.ServerName')
-            $results += Invoke-DBAQuery -SqlInstance $server.ServerName -Query $Query -SqlCredential $SSAcreds -EnableException
-            Write-Host('SSA succeeded on $server.ServerName')
+            Write-Host('Trying Auth1 on $server.ServerName')
+            $results += Invoke-DBAQuery -SqlInstance $server.ServerName -Query $Query -SqlCredential $Auth1Creds -EnableException
+            Write-Host('Auth1 succeeded on $server.ServerName')
         } catch {
-            Write-Warning "WA and SSA failed on $($server.ServerName): $($_.Exception.Message)"
+            Write-Warning "Auth2 and Auth1 failed on $($server.ServerName): $($_.Exception.Message)"
         }
     }
 }
