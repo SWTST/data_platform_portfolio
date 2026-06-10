@@ -1,56 +1,68 @@
 # Tags
 
-## **SQL (core + admin)**
+Tags applied to published work in this repo. Grouped by purpose — pick one from each relevant group when tagging a piece. New tags added as the portfolio grows.
+
+## **Publication format**
+What kind of piece it is.
 ```
-#sql-basics
-#sql-queries
-#sql-joins
-#sql-dml
-#sql-ddl
-#sql-performance
-#db-design
-#system-databases
-#mssql-internals
-#mssql-management-tools
-#backup-restore
-#user-management
-#server-agent
-#sql-admin-advanced
+#post
+#project
+#case-study
+#tuning-case
+#script
+#tutorial
+#writeup
+#notes
 ```
-## **Fabric / Data Engineering**
+
+## **Channel**
+Where it was published or contributed.
 ```
-#fabric-intro
+#linkedin
+#blog
+#github
+#community-contribution
+```
+
+## **Platform / Technology**
+```
+#sql-server
+#t-sql
+#microsoft-fabric
 #onelake
 #lakehouse
 #data-factory
-#pipelines
-#governance
-#permissions
-#lineage
-#semantic-models
-#powerbi
 #dataflows-gen2
-#dp600-prep
+#power-bi
+#powershell
+#azure
+#azure-runbooks
+#python
 ```
-## **Python**
+
+## **Topic area**
 ```
-#python-basics
-#python-syntax
-#data-types
-#loops
-#file-io
-#pandas-basics
-#pandas-joins
-#pandas-cleaning
-#pandas-intermediate
-#pyspark
+#database-administration
+#performance-tuning
+#query-tuning
+#execution-plans
+#indexes
+#backup-restore
+#high-availability
+#security
+#user-management
+#automation
+#data-engineering
+#etl
+#medallion-architecture
+#data-modelling
+#governance
+#monitoring
 ```
-## **Cross-cutting / workflow**
+
+## **Public datasets**
+Datasets used in projects and tuning case studies.
 ```
-#case-study
-#project
-#revision
-#exam-prep
-#github
-#blog-linkedin
+#adventureworks
+#stackoverflow
 ```

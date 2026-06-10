@@ -1,5 +1,6 @@
-
+-- ===================== 
 -- Latest of each backup
+-- =====================
 
 DECLARE @Now datetime = GETDATE();
 
@@ -59,7 +60,9 @@ ORDER BY
     END;
 
 
+-- ==================
 -- Check Backup Size
+-- ==================
 
 DECLARE @BackupType char(1);
 DECLARE @DBName sysname;
@@ -93,7 +96,10 @@ WHERE bs.type = @BackupType
 ORDER BY bs.backup_finish_date DESC;
 
 
+-- ================================
 -- Full Recovery mode with no logs
+-- ================================
+
 DECLARE @Now datetime = GETDATE();
 
 ;WITH LatestLogBackup AS
@@ -136,9 +142,12 @@ WHERE d.database_id > 4
   AND d.recovery_model_desc = 'FULL'
 ORDER BY d.name;
 
--- LSN Integrity
 
-DECLARE @DatabaseName sysname = 'WorkflowDB';
+-- ===============
+-- LSN Integrity
+-- ===============
+
+DECLARE @DatabaseName sysname = 'DBA';
 
 ;WITH LatestFull AS
 (
